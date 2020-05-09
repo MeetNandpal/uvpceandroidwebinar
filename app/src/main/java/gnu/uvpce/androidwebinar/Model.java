@@ -4,9 +4,12 @@ public class Model {
 
     private String name;
     private String version;
-    private int image;
+    private String image;
 
-    public Model(String name, String version, int image) {
+    public Model() {
+    }
+
+    public Model(String name, String version, String image) {
         this.name = name;
         this.version = version;
         this.image = image;
@@ -20,7 +23,7 @@ public class Model {
         return version;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
@@ -32,7 +35,7 @@ public class Model {
         this.version = version;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

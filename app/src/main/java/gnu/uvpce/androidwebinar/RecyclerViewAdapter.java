@@ -1,10 +1,14 @@
 package gnu.uvpce.androidwebinar;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -12,24 +16,27 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     private ArrayList<Model> dataSet;
+    private Context mContext;
+
+    public RecyclerViewAdapter(ArrayList<Model> data, Context mContext) {
+        this.dataSet = data;
+        this.mContext = mContext;
+    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName;
-        TextView textViewVersion;
-        ImageView imageViewIcon;
+        TextView tvName;
+        TextView tvVersion;
+        ImageView ivIcon;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            this.textViewName = (TextView) itemView.findViewById(R.id.textViewName);
-            this.textViewVersion = (TextView) itemView.findViewById(R.id.textViewVersion);
-            this.imageViewIcon = (ImageView) itemView.findViewById(R.id.imageView);
+            this.tvName = (TextView) itemView.findViewById(R.id.textViewName);
+            this.tvVersion = (TextView) itemView.findViewById(R.id.textViewVersion);
+            this.ivIcon = (ImageView) itemView.findViewById(R.id.imageView);
         }
     }
 
-    public RecyclerViewAdapter(ArrayList<Model> data) {
-        this.dataSet = data;
-    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,14 +49,9 @@ public class RecyclerViewAdapter  extends RecyclerView.Adapter<RecyclerViewAdapt
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-
-        TextView textViewName = holder.textViewName;
-        TextView textViewVersion = holder.textViewVersion;
-        ImageView imageView = holder.imageViewIcon;
-
-        textViewName.setText(dataSet.get(position).getName());
-        textViewVersion.setText(dataSet.get(position).getVersion());
-        imageView.setImageResource(dataSet.get(position).getImage());
+        holder.tvName.setText(dataSet.get(position).getName());
+        holder.tvVersion.setText(dataSet.get(position).getVersion());
+        Glide.with(mContext).load(dataSet.get(position).getImage()).into(holder.ivIcon);
     }
 
     @Override
